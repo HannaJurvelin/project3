@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Rock, paper, scissors</title>
+</head>
+
+<script>
+
+    var user;
+
+    function showRock() {
+        $("#warrior").html("<img src='Images/rps-01.png'/>");
+        user = "Rock";
+    }
+
+    function showPaper() {
+        $("#warrior").html("<img src='Images/rps-02.png'/>");
+        user = "Paper";
+    }
+
+    function showScissors() {
+        $("#warrior").html("<img src='Images/rps-03.png'/>");
+        user = "Scissors";
+    }
+
+    function winOrLose() {
+        var game = ["Rock", "Paper", "Scissors"];
+
+        var item = game[Math.floor(Math.random() * 3)];
+        console.log(item)
+
+        if (user == item) {
+            console.log("Tie!");
+        } else {
+            if (user == "Rock") {
+                if (item == "Paper") { 
+                    console.log("You lose!");
+                } else {
+                    console.log("You win!");
+                }
+            } else if (user == "Paper") {
+                if (item == "Scissors") { 
+                    console.log("You lose!");
+                } else {
+                    console.log("You win!");
+                }
+            } else {
+                if (item == "Rock") { 
+                    console.log("You lose!");
+                } else {
+                    console.log("You win!");
+                }
+            }
+        }
+    }
+
+</script>
+
+<body>
+
+    <div class="flexbox">
+        <div class=flexitem>
+            <div id="warrior">
+            </div>
+            <div>
+                <button onclick="showRock()">Rock</button>
+                <button onclick="showPaper()">Paper</button>
+                <button onclick="showScissors()">Scissors</button>
+            </div>
+            <div>Win streak:</div>
+        </div>
+
+        <div class=flexitem2>
+            <h1>VS</h1>
+
+        </div>
+
+        <div class=flexitem>
+            <div>
+                <img src='Images/rps-04.png'>
+            </div>
+            <div>
+                <p>Enemy name</p>
+            </div>
+            <div>Win streak:</div>
+        </div>
+    </div>
+    <button onclick="winOrLose()"><h2>FIGHT</h2></button>
+
+</body>
+
+</html>
