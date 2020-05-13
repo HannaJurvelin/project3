@@ -1,98 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Rock, paper, scissors</title>
-</head>
+  </head>
 
-<script>
-
+  <script>
     var user;
 
     function showRock() {
-        $("#warrior").html("<img src='Images/rps-01.png'/>");
-        user = "Rock";
+      $("#warrior").html("<img src='Images/rps-01.png'/>");
+      user = "rock";
     }
 
     function showPaper() {
-        $("#warrior").html("<img src='Images/rps-02.png'/>");
-        user = "Paper";
+      $("#warrior").html("<img src='Images/rps-02.png'/>");
+      user = "paper";
     }
 
     function showScissors() {
-        $("#warrior").html("<img src='Images/rps-03.png'/>");
-        user = "Scissors";
+      $("#warrior").html("<img src='Images/rps-03.png'/>");
+      user = "scissors";
     }
 
     function winOrLose() {
-        var game = ["Rock", "Paper", "Scissors"];
+      var game = ["rock", "paper", "scissors"];
 
-        var item = game[Math.floor(Math.random() * 3)];
-        console.log(item)
+      var item = game[Math.floor(Math.random() * 3)];
+      console.log(item);
 
-        if (user == item) {
-            console.log("Tie!");
+      var modal = document.getElementById("gamePopup");
+
+      var span = document.getElementsByClassName("close")[0];
+
+      var result;
+
+      if (user == item) {
+        result = "It's a tie! You had " + user + " and the enemy had " + item + ".";
+      } else {
+        if (user == "Rock") {
+          if (item == "Paper") {
+            result = "You lose! You had " + user + " and the enemy had " + item + ".";
+          } else {
+            result = "You won! You had " + user + " and the enemy had " + item + ".";
+          }
+        } else if (user == "Paper") {
+          if (item == "Scissors") {
+            result = "You lose! You had " + user + " and the enemy had " + item + ".";
+          } else {
+            result = "You won! You had " + user + " and the enemy had " + item + ".";
+          }
         } else {
-            if (user == "Rock") {
-                if (item == "Paper") { 
-                    console.log("You lose!");
-                } else {
-                    console.log("You win!");
-                }
-            } else if (user == "Paper") {
-                if (item == "Scissors") { 
-                    console.log("You lose!");
-                } else {
-                    console.log("You win!");
-                }
-            } else {
-                if (item == "Rock") { 
-                    console.log("You lose!");
-                } else {
-                    console.log("You win!");
-                }
-            }
+          if (item == "Rock") {
+            result = "You lose! You had " + user + " and the enemy had " + item + ".";
+          } else {
+            result = "You won! You had " + user + " and the enemy had " + item + ".";
+          }
         }
+      }
+
+      $("#resultText").html(result);
+      $("#gamePopup").css("display", "block");
+      span.onclick = function () {
+        modal.style.display = "none";
+      }
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
     }
+  </script>
 
-</script>
-
-<body>
-
+  <body>
     <div class="flexbox">
-        <div class=flexitem>
-            <div id="warrior">
-            </div>
-            <div>
-                <button onclick="showRock()">Rock</button>
-                <button onclick="showPaper()">Paper</button>
-                <button onclick="showScissors()">Scissors</button>
-            </div>
-            <div>Win streak:</div>
+      <div class="flexitem">
+        <div id="warrior"></div>
+        <div>
+          <button onclick="showRock()">Rock</button>
+          <button onclick="showPaper()">Paper</button>
+          <button onclick="showScissors()">Scissors</button>
         </div>
+        <div>Win streak:</div>
+      </div>
 
-        <div class=flexitem2>
-            <h1>VS</h1>
+      <div class="flexitem2">
+        <h1>VS</h1>
+      </div>
 
+      <div class="flexitem">
+        <div>
+          <img src="Images/rps-04.png" />
         </div>
-
-        <div class=flexitem>
-            <div>
-                <img src='Images/rps-04.png'>
-            </div>
-            <div>
-                <p>Enemy name</p>
-            </div>
-            <div>Win streak:</div>
+        <div>
+          <p>Enemy name</p>
         </div>
+        <div>Win streak:</div>
+      </div>
     </div>
-    <button onclick="winOrLose()"><h2>FIGHT</h2></button>
+    <button onclick="winOrLose()">
+      <h2>FIGHT</h2>
+    </button>
 
-</body>
-
+    <div id="gamePopup">
+      <div class="popupContent">
+      <p id="resultText"></p>
+      <span class="close">&times;</span>
+    </div>
+    </div>
+  </body>
 </html>
