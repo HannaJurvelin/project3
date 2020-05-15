@@ -1,119 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Rock, paper, scissors</title>
-  </head>
 
-  <script>
-    var user;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Rock, paper, scissors</title>
+</head>
 
-    function showRock() {
-      $("#warrior").html("<img src='Images/rps-01.png'/>");
-      user = "rock";
-    }
+<script>
+  //luodaan tyhjä objekti
+  var user;
 
-    function showPaper() {
-      $("#warrior").html("<img src='Images/rps-02.png'/>");
-      user = "paper";
-    }
+  //luodaan objekti jonka arvo on nolla win streakin päivittämistä varten
+  var currentScore = 0;
 
-    function showScissors() {
-      $("#warrior").html("<img src='Images/rps-03.png'/>");
-      user = "scissors";
-    }
+  //funktio lisää sivulle kuvan kun nappia painetaan
+  function showRock() {
+    $("#warrior").html("<img src='Images/rps-01.png'/>");
+    user = "Rock";
+  }
 
-    function winOrLose() {
-      var game = ["rock", "paper", "scissors"];
+  function showPaper() {
+    $("#warrior").html("<img src='Images/rps-02.png'/>");
+    user = "Paper";
+  }
 
-      var item = game[Math.floor(Math.random() * 3)];
-      console.log(item);
+  function showScissors() {
+    $("#warrior").html("<img src='Images/rps-03.png'/>");
+    user = "Scissors";
+  }
 
-      var modal = document.getElementById("gamePopup");
+  function showBirdie() {
+    $("#enemy").html("<img src='Images/birdie.png'/>");
+  }
 
-      var span = document.getElementsByClassName("close")[0];
+  function showBirdie() {
+    $("#enemy").html("<img src='Images/birdie.png'/>");
+  }
 
-      var result;
+  //käyttäjä voi valita nappia painamalla sopivan vihollisen
 
-      if (user == item) {
-        result = "It's a tie! You had " + user + " and the enemy had " + item + ".";
-      } else {
-        if (user == "Rock") {
-          if (item == "Paper") {
-            result = "You lose! You had " + user + " and the enemy had " + item + ".";
-          } else {
-            result = "You won! You had " + user + " and the enemy had " + item + ".";
-          }
-        } else if (user == "Paper") {
-          if (item == "Scissors") {
-            result = "You lose! You had " + user + " and the enemy had " + item + ".";
-          } else {
-            result = "You won! You had " + user + " and the enemy had " + item + ".";
-          }
+  function showBirdie() {
+    $("#enemy").html("<img src='Images/birdie.png'/>");
+    $("#enemydesc").html(
+      "Birdie is a relentless enemy. If she bothers to wake up..."
+    );
+  }
+
+  function showSpdr() {
+    $("#enemy").html("<img src='Images/spdr.png'/>");
+    $("#enemydesc").html(
+      "Sp/dr can quickly wrap you under his web! But he's very afraid of water."
+    );
+  }
+
+  function showTaurus() {
+    $("#enemy").html("<img src='Images/taurus.png'/>");
+    $("#enemydesc").html(
+      "Taurus is the strongest of all enemies, but it's not easy to get him mad."
+    );
+  }
+
+  //kun painetaan Fight-nappia, luodaan array game jossa on sisällä arvot.
+  //luodaan objekti item joka valitsee random arvon 1-3 väliltä
+  //luodaan objekti modal joka valikoi html pop-up elementin id:n perusteella
+  //luodaan objekti joka sulkee pop-upin
+  //luodaan tyhjä objekti result
+
+  //if-else lausekkeen sisällä määräytyy joko käyttäjän tai sivuston voitto tai häviä tai tasapeli
+  //tulokset lisätään aiemmin luotuun objektiin result
+
+  //lisäksi päivitetään objektia currentScore merkkaamaan häviö/voitto
+  function winOrLose() {
+    var game = ["Rock", "Paper", "Scissors"];
+
+    var item = game[Math.floor(Math.random() * 3)];
+
+    var modal = $("#gamePopup")[0];
+
+    var span = $("#close")[0];
+
+    var result;
+
+    if (user == item) {
+      result =
+        "It's a tie! You had " + user + " and the enemy had " + item + ".";
+    } else {
+      if (user == "Rock") {
+        if (item == "Paper") {
+          result =
+            "You lose! You had " + user + " and the enemy had " + item + ".";
+          currentScore = 0;
         } else {
-          if (item == "Rock") {
-            result = "You lose! You had " + user + " and the enemy had " + item + ".";
-          } else {
-            result = "You won! You had " + user + " and the enemy had " + item + ".";
-          }
+          result =
+            "You won! You had " + user + " and the enemy had " + item + ".";
+          currentScore++;
+        }
+      } else if (user == "Paper") {
+        if (item == "Scissors") {
+          result =
+            "You lose! You had " + user + " and the enemy had " + item + ".";
+          currentScore = 0;
+        } else {
+          result =
+            "You won! You had " + user + " and the enemy had " + item + ".";
+          currentScore++;
+        }
+      } else {
+        if (item == "Rock") {
+          result =
+            "You lose! You had " + user + " and the enemy had " + item + ".";
+          currentScore = 0;
+        } else {
+          result =
+            "You won! You had " + user + " and the enemy had " + item + ".";
+          currentScore++;
         }
       }
+    }
 
-      $("#resultText").html(result);
-      $("#gamePopup").css("display", "block");
-      span.onclick = function () {
+    //haetaan id:n perusteella HTML-elementti, jonka sisälle asetetaan objekti result arvo
+    //vaihdetaan HTML-elementti gamePopup arvo näkymättömästä näkyväksi
+    //onclick metodeilla suljetaan popup kun painetaan span-elementtiä tai popupin ulkopuolelta
+    $("#resultText").html("<h2>" + result + "</h2>");
+    $("#gamePopup").css("display", "block");
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+      if (event.target == modal) {
         modal.style.display = "none";
       }
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
+    };
+
+    // tehdään localStoragen avulla objekti joka muistaa suurimman voittomääräputken
+    if (currentScore > localStorage.getItem("userscore")) {
+      localStorage.setItem("userscore", currentScore);
+      $("#userscore").html(localStorage.getItem("userscore"));
     }
-  </script>
 
-  <body>
-    <div class="flexbox">
-      <div class="flexitem">
+    if (currentScore > localStorage.getItem("enemyscore")) {
+      localStorage.setItem("enemyscore", currentScore);
+      $("#enemyscore").html(localStorage.getItem("enemyscore"));
+    }
+  }
+</script>
+
+<body>
+  <div class="flexbox">
+    <div class="flexitem">
+      <div>
+        <h2>Choose your warrior:</h2>
         <div id="warrior"></div>
-        <div>
-          <button onclick="showRock()">Rock</button>
-          <button onclick="showPaper()">Paper</button>
-          <button onclick="showScissors()">Scissors</button>
-        </div>
-        <div>Win streak:</div>
-      </div>
-
-      <div class="flexitem2">
-        <h1>VS</h1>
-      </div>
-
-      <div class="flexitem">
-        <div>
-          <img src="Images/rps-04.png" />
-        </div>
-        <div>
-          <p>Enemy name</p>
-        </div>
-        <div>Win streak:</div>
+        <button onclick="showRock()" class="userbtn">Rock</button>
+        <button onclick="showPaper()" class="userbtn">Paper</button>
+        <button onclick="showScissors()" class="userbtn">Scissors</button>
+        <h3>Max win streak: <span id="userscore"></span>
+        </h3>
       </div>
     </div>
-    <button onclick="winOrLose()">
-      <h2>FIGHT</h2>
-    </button>
 
-    <div id="gamePopup">
-      <div class="popupContent">
+    <div class="flexitem2">
+      <h1>VS</h1>
+    </div>
+
+    <div class="flexitem">
+      <div>
+        <h2>Choose your enemy:</h2>
+        <div id="enemy"></div>
+        <p id="enemydesc"></p>
+        <button onclick="showBirdie()" class="enemybtn">Birdie</button>
+        <button onclick="showSpdr()" class="enemybtn">Sp/dr</button>
+        <button onclick="showTaurus()" class="enemybtn">Taurus</button>
+        <h3>Enemy max win streak: <span id="enemyscore"></span>
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="flexitem3">
+    <button onclick="winOrLose()" class="fightBtn">FIGHT</button>
+  </div>
+
+  <div id="gamePopup">
+    <div class="popupContent">
       <p id="resultText"></p>
-      <span class="close">&times;</span>
+      <span id="close">&times;</span>
     </div>
-    </div>
-  </body>
+  </div>
+</body>
+
+<script>
+  $("#userscore").html(localStorage.getItem("userscore"));
+
+  $("#enemyscore").html(localStorage.getItem("enemyscore"));
+</script>
+
 </html>
